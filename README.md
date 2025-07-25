@@ -5,6 +5,7 @@ Infraestrutura Docker-compose para criação de ambiente local de desenvolviment
 - NginX
 - PHP 8.3
 - MySQL 8.4.3
+- Redis
 
 # Instruções de uso
 
@@ -13,12 +14,3 @@ Infraestrutura Docker-compose para criação de ambiente local de desenvolviment
   > docker-compose up -d
 - Vão ser criados os containers: laravel_nginx, laravel_php, laravel_mysql, laravel_redis
 - Utilizar o VSCode para acessar remotamente ao container de php e usar como pasta de trabalho /var/www/html
-
-# Criação de projeto Laravel
-
-- Executar o comando:
-  `docker exec -ti laravel_php bash`
-- Dentro da pasta /var/www/html executar o comando: `composer create-project laravel/laravel .`
-- Vai ser criado um projeto Laravel dentro da pasta de trabalho atual.
-- No final do processo, executar o comando: `chmod -R 777 storage` e o comando `chmod 777 database/database.sqlite`
-  Estes dois comandos vão dar permissão de escrita à pasta `storage` e ao ficheiro `database.sqlite`
