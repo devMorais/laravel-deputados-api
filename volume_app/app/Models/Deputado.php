@@ -25,12 +25,4 @@ class Deputado extends Model
     {
         return $this->hasMany(Despesa::class);
     }
-
-    /**
-     * Define a relação com os Eventos.
-     */
-    // public function eventos()
-    // {
-    //     return $this->hasMany(Evento::class);
-    // }
 }

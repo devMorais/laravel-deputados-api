@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deputado;
+use App\Models\Despesa;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Exibe a lista de deputados na página inicial.
-     */
     public function index(Request $request)
     {
         $query = Deputado::query();
@@ -27,5 +25,11 @@ class HomeController extends Controller
 
         $deputados = $query->orderBy('nome')->get();
         return view('frontend.home', compact('deputados'));
+    }
+
+    public function despesas(Deputado $deputado)
+    {
+        $despesas = $deputado->despesas()->orderBy('data_documento', 'desc')->get();
+        return view('frontend.despesas', compact('deputado', 'despesas'));
     }
 }

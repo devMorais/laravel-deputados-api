@@ -49,9 +49,6 @@ class SyncDeputiesCommand extends Command
 
                 SyncDeputyExpensesJob::dispatch($deputado->id_api);
                 $this->line("Despachado job para despesas do deputado ID: {$deputado->id_api}");
-
-                // SyncDeputyEventsJob::dispatch($deputado->id_api);
-                // $this->line("Despachado job para eventos do deputado ID: {$deputado->id_api}");
             }
 
             $this->info('Sincronização de deputados, despesas e eventos concluída. Jobs despachados.');

@@ -1,54 +1,61 @@
 @extends('frontend.layouts.layout')
 
 @section('content')
-    <div class="flex-shrink-0">
-        <div class="container mt-5">
-            <div class="content-wrapper">
-                <h1 class="mb-4 text-center">Deputados Federais</h1>
-                <form action="{{ route('home') }}" method="GET" class="mb-4">
-                    <div class="row g-3 align-items-end">
+    <div class="container mt-5 mb-5">
+        <div class="card shadow-lg p-4">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4 text-primary">
+                    <i class="bi bi-people-fill me-2"></i>Deputados Federais
+                </h1>
+                <hr class="mb-4">
+
+                <form action="{{ route('home') }}" method="GET" class="mb-4 p-3 border rounded shadow-sm bg-light">
+                    <div class="row g-3 align-items-end justify-content-center">
                         <div class="col-md-4">
-                            <label for="search_nome" class="form-label">Nome do Deputado:</label>
+                            <label for="search_nome" class="form-label text-dark">Nome do Deputado:</label>
                             <input type="text" class="form-control" id="search_nome" name="nome"
                                 placeholder="Pesquisar por nome" value="{{ request('nome') }}">
                         </div>
                         <div class="col-md-3">
-                            <label for="search_partido" class="form-label">Partido:</label>
+                            <label for="search_partido" class="form-label text-dark">Partido:</label>
                             <input type="text" class="form-control" id="search_partido" name="partido"
                                 placeholder="Pesquisar por partido" value="{{ request('partido') }}">
                         </div>
                         <div class="col-md-3">
-                            <label for="search_uf" class="form-label">UF:</label>
+                            <label for="search_uf" class="form-label text-dark">UF:</label>
                             <input type="text" class="form-control" id="search_uf" name="uf"
                                 placeholder="Pesquisar por UF" value="{{ request('uf') }}">
                         </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-search me-1"></i> Pesquisar
+                            </button>
                         </div>
                     </div>
                 </form>
+
                 @if ($deputados->isEmpty())
-                    <div class="alert alert-info" role="alert">
-                        Nenhum deputado encontrado. Execute o comando 'php artisan sync:deputies' para sincronizar os dados
-                        ou
-                        ajuste os filtros de pesquisa.
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="bi bi-info-circle-fill me-2"></i>Nenhum deputado encontrado. Execute o comando 'php
+                        artisan sync:deputies' para sincronizar os dados
+                        ou ajuste os filtros de pesquisa.
                     </div>
                 @else
-                    <div class="table-responsive">
+                    <div class="table-responsive mt-4">
                         <table class="table table-striped table-bordered table-hover shadow-sm">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>Foto</th>
-                                    <th>Nome</th>
-                                    <th>Partido</th>
-                                    <th>UF</th>
-                                    <th class="text-center">Ações</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Partido</th>
+                                    <th scope="col">UF</th>
+                                    <th scope="col" class="text-center">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($deputados as $deputado)
                                     <tr>
-                                        <td>
+                                        <td class="align-middle">
                                             @if ($deputado->url_foto)
                                                 <img src="{{ $deputado->url_foto }}" alt="Foto de {{ $deputado->nome }}"
                                                     class="img-thumbnail rounded-circle"
@@ -59,14 +66,14 @@
                                                     style="width: 50px; height: 50px; object-fit: cover;">
                                             @endif
                                         </td>
-                                        <td>{{ $deputado->nome }}</td>
-                                        <td>{{ $deputado->sigla_partido ?? 'N/A' }}</td>
-                                        <td>{{ $deputado->sigla_uf ?? 'N/A' }}</td>
-                                        {{-- {{ route('deputados.despesas', $deputado->id) }} --}}
-                                        {{-- {{ route('deputados.eventos', $deputado->id) }} --}}
-                                        <td class="text-center">
-                                            <a href="" class="btn btn-sm btn-primary mt-1">Ver Despesas</a>
-                                            <a href="" class="btn btn-sm btn-info mt-1 text-white">Ver Eventos</a>
+                                        <td class="align-middle">{{ $deputado->nome }}</td>
+                                        <td class="align-middle">{{ $deputado->sigla_partido ?? 'N/A' }}</td>
+                                        <td class="align-middle">{{ $deputado->sigla_uf ?? 'N/A' }}</td>
+                                        <td class="text-center align-middle">
+                                            <a href="{{ route('despesas', $deputado->id) }}"
+                                                class="btn btn-sm btn-primary mt-1">
+                                                <i class="bi bi-cash-stack me-1"></i> Ver Despesas
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
